@@ -25,7 +25,7 @@ public class Trip {
         }
 
         if (distanceKm <= 0) {
-            throw new IllegalArgumentException("distanceKm must be greter than zero");
+            throw new IllegalArgumentException("distanceKm must be greater than zero");
         }
 
         this.id = id;

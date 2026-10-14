@@ -6,15 +6,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TripTest {
 
-    @Test
-    void shouldCreateValidVehicle() {
-        Vehicle vehicle = new Vehicle(1, "NMV5798","Toyota Hilux SW4", 2016, 600);
 
-        assertEquals(1, vehicle.getId());
-        assertEquals("NMV5798", vehicle.getPlate());
-        assertEquals("Toyota Hilux SW4", vehicle.getModel());
-        assertEquals(2016, vehicle.getYear());
-        assertEquals(600, vehicle.getCapacityKg());
+    @Test
+    void shouldCreateValidTrip() {
+        Vehicle availableVehicle = new Vehicle(3, "FXZ3984", "Volkswagen Up", 2017, 400);
+        assertEquals(VehicleStatus.AVAILABLE, availableVehicle.getStatus());
+
+        Driver licensedDriver = new Driver(100, "Janaina Ferreira", "7839", LicenseCategory.D);
+
+        Trip validTrip = new Trip(1, availableVehicle, licensedDriver, "São Bernardo do Campo", "Natal", 2500);
+        assertEquals(TripStatus.PLANNED, validTrip.getStatus());
     }
 
     @Test
@@ -46,6 +47,13 @@ class TripTest {
         Driver driver = new Driver(1, "Rafael Augusto", "3397", LicenseCategory.B);
 
         assertThrows(IllegalArgumentException.class, () -> new Trip(23, vehicle, driver, "Santo Amaro", "São Bernardo do Campo", 0));
+    }
+
+    @Test
+    void shouldRejectNullDriver() {
+        Vehicle availableVehicle = new Vehicle(99, "ABC0123", "Nissan Kicks", 2018, 500);
+
+        assertThrows(NullPointerException.class, () -> new Trip(45, availableVehicle, null, "São Paulo", "São Mateus", 200));
     }
 
 }
