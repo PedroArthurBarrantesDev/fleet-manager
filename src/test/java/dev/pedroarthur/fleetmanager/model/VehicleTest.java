@@ -8,8 +8,8 @@ class VehicleTest {
 
     @Test
     void shouldCreateVehicleAsAvailable() {
-        Vehicle veiculo1 = new Vehicle(1, "FXZ3395", "Up", 2017, 400);
-        assertEquals(VehicleStatus.AVAILABLE, veiculo1.getStatus());
+        Vehicle vehicle = new Vehicle(3, "FXZ3395", "Volkswagen Up", 2017, 400);
+        assertEquals(VehicleStatus.AVAILABLE, vehicle.getStatus());
     }
 
     @Test

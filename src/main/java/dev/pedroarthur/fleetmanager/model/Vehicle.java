@@ -11,9 +11,17 @@ public class Vehicle {
 
     public Vehicle(long id, String plate, String model, int year, double capacityKg) {
 
-        if (plate == null || plate.isBlank()) throw new IllegalArgumentException("plate must not be blank");
-        if (model == null || model.isBlank()) throw new IllegalArgumentException("model must not be blank");
-        if (capacityKg <= 0 ) throw new IllegalArgumentException("capacityKg must be greater than 0");
+        if (plate == null || plate.isBlank()) {
+            throw new IllegalArgumentException("plate must not be blank");
+        }
+
+        if (model == null || model.isBlank()) {
+            throw new IllegalArgumentException("model must not be blank");
+        }
+
+        if (capacityKg <= 0 ) {
+            throw new IllegalArgumentException("capacityKg must be greater than 0");
+        }
 
         this.id = id;
         this.plate = plate;
