@@ -23,8 +23,9 @@ class DriverTest {
 
     @Test
     void shouldRejectBlankLicenseNumber() {
-        assertThrows(IllegalArgumentException.class, () -> new Driver(1,"Rafael Augusto","", LicenseCategory.B));
+        assertThrows(IllegalArgumentException.class, () -> new Driver(1, "Rafael Augusto", "", LicenseCategory.B));
     }
+
     @Test
     void shouldRejectNullCategory() {
         assertThrows(NullPointerException.class, () -> new Driver(1, "Rafael Augusto", "3397", null));
