@@ -17,11 +17,11 @@ Fleet Manager is a plain Java console application to register vehicles and drive
 - Domain model for vehicles, drivers and trips.
 - Validation in the constructors, so an object can never exist in an invalid state.
 - Unit tests with JUnit 5.
+- Trip reports with Java Streams: total kilometers per vehicle, trips per driver, trips per status, total kilometers and the vehicle with the most kilometers.
 
 **Planned**
 - In-memory repositories.
 - Business rules for starting and finishing trips.
-- Reports with Java Streams (for example, total kilometers per vehicle).
 - Console menu.
 
 ## Domain model
@@ -80,7 +80,7 @@ src
 - [x] Unit tests for the model
 - [ ] In-memory repositories
 - [ ] Business rules: start and finish trips
-- [ ] Reports with Streams
+- [x] Reports with Streams
 - [ ] Console menu
 
 ## Author
