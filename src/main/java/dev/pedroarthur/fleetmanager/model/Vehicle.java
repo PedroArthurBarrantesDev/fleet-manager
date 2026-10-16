@@ -54,4 +54,18 @@ public class Vehicle {
     public VehicleStatus getStatus() {
         return status;
     }
+
+    void startTrip() {
+        if (status != VehicleStatus.AVAILABLE) {
+            throw new IllegalStateException("vehicle must be AVAILABLE to start a trip, but is " + status);
+        }
+        this.status = VehicleStatus.ON_TRIP;
+    }
+
+    void finishTrip() {
+        if (status != VehicleStatus.ON_TRIP) {
+            throw new IllegalStateException("vehicle must be ON_TRIP to finish a trip, but is " + status);
+        }
+        this.status = VehicleStatus.AVAILABLE;
+    }
 }
