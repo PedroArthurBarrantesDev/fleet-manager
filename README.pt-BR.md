@@ -9,19 +9,20 @@
 
 O Fleet Manager é uma aplicação de console em Java puro para cadastrar veículos e motoristas, controlar viagens e gerar relatórios. Ele foi feito sem frameworks de propósito, para praticar os fundamentos: orientação a objetos, encapsulamento, validação, coleções, streams e testes automatizados.
 
-> **Status:** em desenvolvimento. O modelo de domínio e seus testes unitários estão prontos. Veja o [roteiro](#roteiro).
+> **Status:** em desenvolvimento. O modelo de domínio e os repositórios em memória estão prontos, com testes unitários. Veja o [roteiro](#roteiro).
 
 ## Funcionalidades
 
 **Implementadas**
 - Modelo de domínio para veículos, motoristas e viagens.
 - Validação nos construtores, para que um objeto nunca exista em estado inválido.
+- Repositórios em memória (`VehicleRepository`, `DriverRepository`, `TripRepository`) para cadastrar, buscar por id e listar. Cadastrar um id repetido lança `IllegalArgumentException`.
 - Testes unitários com JUnit 5.
-- Relatórios de viagens com Java Streams: quilômetros totais por veículo, viagens por motorista, viagens por status, quilômetros totais e o veículo com mais quilômetros.
+- Regras de negócio para iniciar e finalizar viagens: `Trip.start()` e `Trip.finish()` movem a viagem e o veículo entre os status e rejeitam transições inválidas.
+- Relatórios com Java Streams (por exemplo, quilômetros totais por veículo).
+
 
 **Planejadas**
-- Repositórios em memória.
-- Regras de negócio para iniciar e finalizar viagens.
 - Menu de console.
 
 ## Modelo de domínio
@@ -68,18 +69,27 @@ src
 │   ├── LicenseCategory.java
 │   ├── Trip.java
 │   └── TripStatus.java
-└── test/java/dev/pedroarthur/fleetmanager/model
-    ├── VehicleTest.java
-    ├── DriverTest.java
-    └── TripTest.java
+├── main/java/dev/pedroarthur/fleetmanager/repository
+│   ├── InMemoryRepository.java
+│   ├── VehicleRepository.java
+│   ├── DriverRepository.java
+│   └── TripRepository.java
+├── test/java/dev/pedroarthur/fleetmanager/model
+│   ├── VehicleTest.java
+│   ├── DriverTest.java
+│   └── TripTest.java
+└── test/java/dev/pedroarthur/fleetmanager/repository
+    ├── VehicleRepositoryTest.java
+    ├── DriverRepositoryTest.java
+    └── TripRepositoryTest.java
 ```
 
 ## Roteiro
 
 - [x] Modelo de domínio com validação
 - [x] Testes unitários do modelo
-- [ ] Repositórios em memória
-- [ ] Regras de negócio: iniciar e finalizar viagens
+- [x] Repositórios em memória
+- [x] Regras de negócio: iniciar e finalizar viagens
 - [x] Relatórios com Streams
 - [ ] Menu de console
 
