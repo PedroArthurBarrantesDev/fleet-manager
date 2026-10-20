@@ -65,4 +65,19 @@ public class Trip {
         return status;
     }
 
+    public void start() {
+        if (status != TripStatus.PLANNED) {
+            throw new IllegalStateException("trip must be PLANNED to start, but is " + status);
+        }
+        vehicle.startTrip();
+        this.status = TripStatus.IN_PROGRESS;
+    }
+
+    public void finish() {
+        if (status != TripStatus.IN_PROGRESS) {
+            throw new IllegalStateException("trip must be IN_PROGRESS to finish, but is " + status);
+        }
+        vehicle.finishTrip();
+        this.status = TripStatus.COMPLETED;
+    }
 }
