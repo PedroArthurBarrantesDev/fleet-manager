@@ -9,18 +9,18 @@
 
 Fleet Manager is a plain Java console application to register vehicles and drivers, control trips and generate reports. It is built without frameworks on purpose, to practice the fundamentals: object-oriented design, encapsulation, validation, collections, streams and automated testing.
 
-> **Status:** work in progress. The domain model and its unit tests are done. See the [roadmap](#roadmap).
+> **Status:** work in progress. The domain model and the in-memory repositories are done, with unit tests. See the [roadmap](#roadmap).
 
 ## Features
 
 **Implemented**
 - Domain model for vehicles, drivers and trips.
 - Validation in the constructors, so an object can never exist in an invalid state.
+- In-memory repositories (`VehicleRepository`, `DriverRepository`, `TripRepository`) to register, find by id and list. Registering a duplicate id throws `IllegalArgumentException`.
 - Unit tests with JUnit 5.
 - Business rules for starting and finishing trips: `Trip.start()` and `Trip.finish()` move the trip and its vehicle between statuses and reject invalid transitions.
 
 **Planned**
-- In-memory repositories.
 - Reports with Java Streams (for example, total kilometers per vehicle).
 - Console menu.
 
@@ -68,17 +68,26 @@ src
 │   ├── LicenseCategory.java
 │   ├── Trip.java
 │   └── TripStatus.java
-└── test/java/dev/pedroarthur/fleetmanager/model
-    ├── VehicleTest.java
-    ├── DriverTest.java
-    └── TripTest.java
+├── main/java/dev/pedroarthur/fleetmanager/repository
+│   ├── InMemoryRepository.java
+│   ├── VehicleRepository.java
+│   ├── DriverRepository.java
+│   └── TripRepository.java
+├── test/java/dev/pedroarthur/fleetmanager/model
+│   ├── VehicleTest.java
+│   ├── DriverTest.java
+│   └── TripTest.java
+└── test/java/dev/pedroarthur/fleetmanager/repository
+    ├── VehicleRepositoryTest.java
+    ├── DriverRepositoryTest.java
+    └── TripRepositoryTest.java
 ```
 
 ## Roadmap
 
 - [x] Domain model with validation
 - [x] Unit tests for the model
-- [ ] In-memory repositories
+- [x] In-memory repositories
 - [x] Business rules: start and finish trips
 - [ ] Reports with Streams
 - [ ] Console menu
