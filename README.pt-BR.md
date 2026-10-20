@@ -19,10 +19,10 @@ O Fleet Manager é uma aplicação de console em Java puro para cadastrar veícu
 - Repositórios em memória (`VehicleRepository`, `DriverRepository`, `TripRepository`) para cadastrar, buscar por id e listar. Cadastrar um id repetido lança `IllegalArgumentException`.
 - Testes unitários com JUnit 5.
 - Regras de negócio para iniciar e finalizar viagens: `Trip.start()` e `Trip.finish()` movem a viagem e o veículo entre os status e rejeitam transições inválidas.
+- Relatórios com Java Streams (por exemplo, quilômetros totais por veículo).
 
 
 **Planejadas**
-- Relatórios com Java Streams (por exemplo, quilômetros totais por veículo).
 - Menu de console.
 
 ## Modelo de domínio
@@ -90,7 +90,7 @@ src
 - [x] Testes unitários do modelo
 - [x] Repositórios em memória
 - [x] Regras de negócio: iniciar e finalizar viagens
-- [ ] Relatórios com Streams
+- [x] Relatórios com Streams
 - [ ] Menu de console
 
 ## Autor
