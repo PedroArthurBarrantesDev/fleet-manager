@@ -56,4 +56,81 @@ class TripTest {
         assertThrows(NullPointerException.class, () -> new Trip(45, availableVehicle, null, "São Paulo", "São Mateus", 200));
     }
 
+    @Test
+    void shouldStartPlannedTripAndPutVehicleOnTrip() {
+        Vehicle vehicle = new Vehicle(5, "FZA7928", "Jeep Renegade", 2018, 500);
+        Driver driver = new Driver(1, "Rafael Augusto", "3397", LicenseCategory.B);
+        Trip trip = new Trip(1, vehicle, driver, "São Paulo", "Campinas", 100);
+
+        trip.start();
+
+        assertEquals(TripStatus.IN_PROGRESS, trip.getStatus());
+        assertEquals(VehicleStatus.ON_TRIP, vehicle.getStatus());
+    }
+
+    @Test
+    void shouldFinishTripAndMakeVehicleAvailableAgain() {
+        Vehicle vehicle = new Vehicle(5, "FZA7928", "Jeep Renegade", 2018, 500);
+        Driver driver = new Driver(1, "Rafael Augusto", "3397", LicenseCategory.B);
+        Trip trip = new Trip(1, vehicle, driver, "São Paulo", "Campinas", 100);
+
+        trip.start();
+        trip.finish();
+
+        assertEquals(TripStatus.COMPLETED, trip.getStatus());
+        assertEquals(VehicleStatus.AVAILABLE, vehicle.getStatus());
+    }
+
+    @Test
+    void shouldRejectFinishingPlannedTrip() {
+        Vehicle vehicle = new Vehicle(5, "FZA7928", "Jeep Renegade", 2018, 500);
+        Driver driver = new Driver(1, "Rafael Augusto", "3397", LicenseCategory.B);
+        Trip trip = new Trip(1, vehicle, driver, "São Paulo", "Campinas", 100);
+
+        assertThrows(IllegalStateException.class, trip::finish);
+        assertEquals(TripStatus.PLANNED, trip.getStatus());
+        assertEquals(VehicleStatus.AVAILABLE, vehicle.getStatus());
+    }
+
+    @Test
+    void shouldRejectStartingTripTwice() {
+        Vehicle vehicle = new Vehicle(5, "FZA7928", "Jeep Renegade", 2018, 500);
+        Driver driver = new Driver(1, "Rafael Augusto", "3397", LicenseCategory.B);
+        Trip trip = new Trip(1, vehicle, driver, "São Paulo", "Campinas", 100);
+
+        trip.start();
+
+        assertThrows(IllegalStateException.class, trip::start);
+        assertEquals(TripStatus.IN_PROGRESS, trip.getStatus());
+    }
+
+    @Test
+    void shouldRejectRestartingOrRefinishingCompletedTrip() {
+        Vehicle vehicle = new Vehicle(5, "FZA7928", "Jeep Renegade", 2018, 500);
+        Driver driver = new Driver(1, "Rafael Augusto", "3397", LicenseCategory.B);
+        Trip trip = new Trip(1, vehicle, driver, "São Paulo", "Campinas", 100);
+
+        trip.start();
+        trip.finish();
+
+        assertThrows(IllegalStateException.class, trip::start);
+        assertThrows(IllegalStateException.class, trip::finish);
+        assertEquals(TripStatus.COMPLETED, trip.getStatus());
+        assertEquals(VehicleStatus.AVAILABLE, vehicle.getStatus());
+    }
+
+    @Test
+    void shouldRejectStartingTripWhenVehicleIsAlreadyOnTrip() {
+        Vehicle vehicle = new Vehicle(5, "FZA7928", "Jeep Renegade", 2018, 500);
+        Driver driver = new Driver(1, "Rafael Augusto", "3397", LicenseCategory.B);
+        Trip firstTrip = new Trip(1, vehicle, driver, "São Paulo", "Campinas", 100);
+        Trip secondTrip = new Trip(2, vehicle, driver, "São Paulo", "Santos", 80);
+
+        firstTrip.start();
+
+        assertThrows(IllegalStateException.class, secondTrip::start);
+        assertEquals(TripStatus.PLANNED, secondTrip.getStatus());
+        assertEquals(VehicleStatus.ON_TRIP, vehicle.getStatus());
+    }
+
 }

@@ -17,10 +17,10 @@ O Fleet Manager é uma aplicação de console em Java puro para cadastrar veícu
 - Modelo de domínio para veículos, motoristas e viagens.
 - Validação nos construtores, para que um objeto nunca exista em estado inválido.
 - Testes unitários com JUnit 5.
+- Regras de negócio para iniciar e finalizar viagens: `Trip.start()` e `Trip.finish()` movem a viagem e o veículo entre os status e rejeitam transições inválidas.
 
 **Planejadas**
 - Repositórios em memória.
-- Regras de negócio para iniciar e finalizar viagens.
 - Relatórios com Java Streams (por exemplo, quilômetros totais por veículo).
 - Menu de console.
 
@@ -79,7 +79,7 @@ src
 - [x] Modelo de domínio com validação
 - [x] Testes unitários do modelo
 - [ ] Repositórios em memória
-- [ ] Regras de negócio: iniciar e finalizar viagens
+- [x] Regras de negócio: iniciar e finalizar viagens
 - [ ] Relatórios com Streams
 - [ ] Menu de console
 
