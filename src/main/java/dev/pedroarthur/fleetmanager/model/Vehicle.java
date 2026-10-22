@@ -71,7 +71,7 @@ public class Vehicle {
 
     @Override
     public String toString() {
-        return "Número de identificação: " + id + ", Placa: " +
+        return "Número de identificação do veículo: " + id + ", Placa: " +
                 plate + ", Modelo: " + model + ", Ano de fabricação: " +
                 year + ", Capacidade: " + capacityKg + " Kg" + ", Status: " + status;
     }
