@@ -68,4 +68,11 @@ public class Vehicle {
         }
         this.status = VehicleStatus.AVAILABLE;
     }
+
+    @Override
+    public String toString() {
+        return "Número de identificação: " + id + ", Placa: " +
+                plate + ", Modelo: " + model + ", Ano de fabricação: " +
+                year + ", Capacidade: " + capacityKg + " Kg" + ", Status: " + status;
+    }
 }

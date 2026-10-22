@@ -1,8 +1,12 @@
 package dev.pedroarthur.fleetmanager.app;
 
+import dev.pedroarthur.fleetmanager.model.Driver;
+import dev.pedroarthur.fleetmanager.model.LicenseCategory;
 import dev.pedroarthur.fleetmanager.model.Vehicle;
+import dev.pedroarthur.fleetmanager.repository.DriverRepository;
 import dev.pedroarthur.fleetmanager.repository.VehicleRepository;
 
+import java.text.NumberFormat;
 import java.util.Scanner;
 
 class Main {
@@ -11,9 +15,10 @@ class Main {
         Scanner sc = new Scanner(System.in);
         String answer;
 
-        //creating a VehicleRepo to store information locally
-        VehicleRepository repo = new VehicleRepository();
-        long id = 1;
+        //creating Repos to store information locally
+        DriverRepository driverRepo = new DriverRepository();
+        VehicleRepository vehicleRepo = new VehicleRepository();
+        long idDriver = 1, idVehicle = 1;
 
 
         do {
@@ -25,15 +30,25 @@ class Main {
                     String submenu = sc.nextLine();
                     switch (submenu) {
                         case "1":
-                            //create driver
+                            try {
+                                Driver driver = creatingDriverInput(idDriver, sc);
+                                driverRepo.register(driver);
+                                idDriver++;
+                            } catch (NumberFormatException e) {
+                                System.out.println(e.getMessage());
+                            }
                             break;
                         case "2":
                             //create trip
                             break;
                         case "3":
-                            Vehicle vehicle = creatingVehicleInput(id, sc); //asks the user to input vehicle values and stores it in vehicle
-                            repo.register(vehicle); //registers in the repository
-                            id++; //id is incremented so the next vehicle gets a new id
+                            try {
+                                Vehicle vehicle = creatingVehicleInput(idVehicle, sc); //asks the user to input vehicle values and stores it in vehicle
+                                vehicleRepo.register(vehicle); //registers in the repository
+                                idVehicle++; //id is incremented so the next vehicle gets a new id
+                            } catch (Exception e) {
+                                System.out.println(e.getMessage());
+                            }
                             break;
                         case "4":
                             //returns to previous menu
@@ -42,14 +57,7 @@ class Main {
                             System.out.println("👋 Até logo! 👋");
                             break;
                         default:
-                            try {
-                                System.out.println("❌ Opção inválida! Tente novamente! ❌\n");
-                                System.out.println("Você será redirecionado(a) ao menu em 5 segundos...");
-                                Thread.sleep(5000);
-                            } catch (InterruptedException e) {
-                                System.err.println("O temporizador falhou ou foi interrompido...");
-                                break;
-                            }
+                            invalidOptionReturn();
                     }
                     break;
                 case "2":
@@ -143,6 +151,18 @@ class Main {
         } catch (InterruptedException e) {
             System.err.println("O temporizador falhou ou foi interrompido...");
         }
+    }
+
+    private static Driver creatingDriverInput(long id, Scanner sc) {
+        System.out.print("Digite o nome do motorista: ");
+        String name = sc.nextLine();
+        System.out.print("Digite a licensa do motorista: ");
+        String licenseNumber = sc.nextLine();
+        System.out.print("Digite a categoria do motorista: ");
+        String licenseCategoryInput = sc.nextLine();
+        LicenseCategory licenseCategory = LicenseCategory.valueOf(licenseCategoryInput.toUpperCase());
+        Driver driver = new Driver(id, name, licenseNumber, licenseCategory);
+        return driver;
     }
 
     private static Vehicle creatingVehicleInput(long id, Scanner sc) {
