@@ -5,20 +5,10 @@ import java.util.Scanner;
 class Main {
 
     public static void main(String[] args) {
-        System.out.println("\n\n=== 🚗🚒🚙🛻 Bem vindo(a) ao Fleet Manager 🚗🚒🚙🛻 ===\n\n");
-        System.out.println("Por favor, escolha a opção desejada\n");
-        System.out.println("1 - Menu de cadastrar dados 📝s\n");
-        System.out.println("2 - Menu de relatório de dados 🗒️\n");
-        System.out.println("3 - Menu de atualizar dados 🔄️\n");
-        System.out.println("4 - Menu para deletar dados ❌\n");
-        //System.out.println("5 - Relatório 📓\n");
-        System.out.println("0 - Sair do Fleet Manager 👋\n");
-        System.out.println("-> ");
-        String answer;
         Scanner sc = new Scanner(System.in);
-
-
+        String answer;
         do {
+            showMenu();
             answer = sc.nextLine();
             switch (answer) {
                 case "1":
@@ -42,20 +32,7 @@ class Main {
                         System.out.println("❌ Opção inválida! Tente novamente! ❌\n");
                         System.out.println("Você será redirecionado(a) ao menu em 5 segundos...");
                         Thread.sleep(5000);
-                        System.out.flush();
-
-                        System.out.println("\n\n=== 🚗🚒🚙🛻 Bem vindo(a) ao Fleet Manager 🚗🚒🚙🛻 ===\n\n");
-                        System.out.println("Por favor, escolha a opção desejada\n");
-                        System.out.println("1 - Menu de cadastrar dados 📝s\n");
-                        System.out.println("2 - Menu de relatório de dados 🗒️\n");
-                        System.out.println("3 - Menu de atualizar dados 🔄️\n");
-                        System.out.println("4 - Menu para deletar dados ❌\n");
-                        //System.out.println("5 - Relatório 📓\n");
-                        System.out.println("0 - Sair do Fleet Manager 👋\n");
-                        System.out.println("-> ");
-
-                        answer = sc.nextLine();
-                    }catch(InterruptedException e){
+                    } catch (InterruptedException e) {
                         System.err.println("O temporizador falhou ou foi interrompido...");
                         break;
                     }
@@ -66,5 +43,18 @@ class Main {
 
         sc.close();
     }
+
+    private static void showMenu() {
+        System.out.println("\n\n=== 🚗🚒🚙🛻 Bem vindo(a) ao Fleet Manager 🚗🚒🚙🛻 ===\n\n");
+        System.out.println("Por favor, escolha a opção desejada\n");
+        System.out.println("1 - Menu de cadastrar dados 📝\n");
+        System.out.println("2 - Menu de relatório de dados 🗒️\n");
+        System.out.println("3 - Menu de atualizar dados 🔄️\n");
+        System.out.println("4 - Menu para deletar dados ❌\n");
+        //System.out.println("5 - Relatório 📓\n");
+        System.out.println("0 - Sair do Fleet Manager 👋\n");
+        System.out.print("-> ");
+    }
+
 
 }
