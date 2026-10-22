@@ -42,4 +42,10 @@ public class Driver {
     public String getLicenseNumber() {
         return licenseNumber;
     }
+
+    @Override
+    public String toString() {
+        return "Número de identificação do motorista: " + id + ", Nome: " + name +
+                ", CNH: " + licenseNumber + "Categoria da CNH: " + licenseCategory;
+    }
 }
