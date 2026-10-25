@@ -50,6 +50,28 @@ class DriverRepositoryTest {
     }
 
     @Test
+    void shouldReplaceDriverWithSameId() {
+        // prepare: a registered driver (same as the original)
+        Driver original = new Driver(1, "Rafael Augusto", "3397", LicenseCategory.B);
+        repository.register(original);
+
+        // act: create another Driver with the SAME id and different data, and call update
+        Driver updated = new Driver(1, "Julia Alves", "3958", LicenseCategory.B);
+        repository.update(updated);
+
+        // check: what should findById(1) return now, original or updated?
+        assertSame(updated, repository.findById(1).orElseThrow());
+    }
+
+
+    @Test
+    void shouldRejectUpdateOfUnknownId() {
+        assertThrows(IllegalArgumentException.class,
+                () -> repository.update(new Driver(1, "Ana Souza", "4410", LicenseCategory.E)));
+    }
+
+
+    @Test
     void shouldRejectNullDriver() {
         assertThrows(NullPointerException.class, () -> repository.register(null));
     }

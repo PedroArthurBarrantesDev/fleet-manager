@@ -18,7 +18,7 @@ class Main {
         DriverRepository driverRepo = new DriverRepository();
         TripRepository tripRepo = new TripRepository();
         VehicleRepository vehicleRepo = new VehicleRepository();
-        long idDriver = 1, idVehicle = 1, idTrip = 1;
+        long idDriver = 1, idVehicle = 1, idTrip = 1, updateId = 1;
 
 
         do {
@@ -86,7 +86,7 @@ class Main {
                     switch (submenuRetrieve) {
                         case "1":
                             try {
-                                if (driverRepo.findById(idDriver).isEmpty()) {
+                                if (driverRepo.findAll().isEmpty()) {
                                     System.out.println("Nenhum motorista encontrado! Você será redirecionado em 5 segundos...");
                                     Thread.sleep(5000);
                                     break;
@@ -101,7 +101,7 @@ class Main {
                             }
                         case "2":
                             try {
-                                if (tripRepo.findById(idTrip).isEmpty()) {
+                                if (tripRepo.findAll().isEmpty()) {
                                     System.out.println("Nenhuma viagem registrada! Você será redirecionado em 5 segundos...");
                                     Thread.sleep(5000);
                                     break;
@@ -116,10 +116,15 @@ class Main {
                             }
                         case "3":
                             try {
-                                vehicleRepo.findAll().forEach(System.out::println);
-                                System.out.println("\nVocê será redirecionado em 10 segundos...");
-                                Thread.sleep(10000);
-                                break;
+                                if (vehicleRepo.findAll().isEmpty()) {
+                                    System.out.println("Nenhum veículo registrado! Você será redirecionado em 5 segundos...");
+                                    Thread.sleep(5000);
+                                } else {
+                                    vehicleRepo.findAll().forEach(System.out::println);
+                                    System.out.println("\nVocê será redirecionado em 10 segundos...");
+                                    Thread.sleep(10000);
+                                    break;
+                                }
                             } catch (IllegalArgumentException | InterruptedException e) {
                                 System.out.println(e.getMessage());
                             }
@@ -135,6 +140,23 @@ class Main {
                     break;
                 case "3":
                     showMenuUpdate();
+                    String submenuUpdate = sc.nextLine();
+                    switch (submenuUpdate) {
+                        case "1":
+                            try {
+                                if (driverRepo.findAll().isEmpty()) {
+                                    System.out.println("Não há motoristas para serem alterados! Você será redirecionado...");
+                                    Thread.sleep(5000);
+                                } else {
+                                    System.out.print("Por favor, entre com o ID do motorista a ser alterado: ");
+                                    updateId = Long.parseLong(sc.nextLine());
+                                    driverRepo.update(driverRepo.findById(updateId).orElseThrow(IllegalArgumentException::new));
+
+                                }
+                            } catch (IllegalArgumentException | InterruptedException e) {
+                                System.out.println(e.getMessage());
+                            }
+                    }
                     break;
                 case "4":
                     showMenuDelete();

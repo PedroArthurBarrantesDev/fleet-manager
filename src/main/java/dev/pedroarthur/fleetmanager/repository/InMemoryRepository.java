@@ -28,6 +28,18 @@ public abstract class InMemoryRepository<T> {
         items.put(id, item);
     }
 
+    public void update(T item) {
+        Objects.requireNonNull(item, "item must not be null");
+
+        long id = idOf.applyAsLong(item);
+
+        if (!items.containsKey(id)) {
+            throw new IllegalArgumentException("id " + id + " is not registered");
+        }
+
+        items.put(id, item);
+    }
+
     public Optional<T> findById(long id) {
         return Optional.ofNullable(items.get(id));
     }
