@@ -46,6 +46,6 @@ public class Driver {
     @Override
     public String toString() {
         return "Número de identificação do motorista: " + id + ", Nome: " + name +
-                ", CNH: " + licenseNumber + "Categoria da CNH: " + licenseCategory;
+                ", CNH: " + licenseNumber + ", Categoria da CNH: " + licenseCategory;
     }
 }

@@ -27,8 +27,8 @@ class Main {
             switch (answer) {
                 case "1":
                     showMenuCreate();
-                    String submenu = sc.nextLine();
-                    switch (submenu) {
+                    String submenuCreate = sc.nextLine();
+                    switch (submenuCreate) {
                         case "1":
                             try {
                                 Driver driver = creatingDriverInput(idDriver, sc);
@@ -75,13 +75,63 @@ class Main {
                             break;
                         case "0":
                             System.out.println("👋 Até logo! 👋");
-                            break;
+                            System.exit(0);
                         default:
                             invalidOptionReturn();
                     }
                     break;
                 case "2":
                     showMenuRetrieve();
+                    String submenuRetrieve = sc.nextLine();
+                    switch (submenuRetrieve) {
+                        case "1":
+                            try {
+                                if (driverRepo.findById(idDriver).isEmpty()) {
+                                    System.out.println("Nenhum motorista encontrado! Você será redirecionado em 5 segundos...");
+                                    Thread.sleep(5000);
+                                    break;
+                                } else {
+                                    driverRepo.findAll().forEach(System.out::println);
+                                    System.out.println("\nVocê será redirecionado em 10 segundos...");
+                                    Thread.sleep(10000);
+                                    break;
+                                }
+                            } catch (IllegalArgumentException | InterruptedException e) {
+                                System.out.println(e.getMessage());
+                            }
+                        case "2":
+                            try {
+                                if (tripRepo.findById(idTrip).isEmpty()) {
+                                    System.out.println("Nenhuma viagem registrada! Você será redirecionado em 5 segundos...");
+                                    Thread.sleep(5000);
+                                    break;
+                                } else {
+                                    tripRepo.findAll().forEach(System.out::println);
+                                    System.out.println("\nVocê será redirecionado em 10 segundos...");
+                                    Thread.sleep(10000);
+                                    break;
+                                }
+                            } catch (IllegalArgumentException | InterruptedException e) {
+                                System.out.println(e.getMessage());
+                            }
+                        case "3":
+                            try {
+                                vehicleRepo.findAll().forEach(System.out::println);
+                                System.out.println("\nVocê será redirecionado em 10 segundos...");
+                                Thread.sleep(10000);
+                                break;
+                            } catch (IllegalArgumentException | InterruptedException e) {
+                                System.out.println(e.getMessage());
+                            }
+                        case "4":
+                            break;
+                        case "0":
+                            System.out.println("👋 Até logo! 👋");
+                            System.exit(0);
+                        default:
+                            invalidOptionReturn();
+                            break;
+                    }
                     break;
                 case "3":
                     showMenuUpdate();
@@ -91,8 +141,7 @@ class Main {
                     break;
                 case "0":
                     System.out.println("👋 Até logo! 👋");
-                    break;
-
+                    System.exit(0);
                 default:
                     invalidOptionReturn();
                     break;
@@ -132,7 +181,7 @@ class Main {
         System.out.println("Por favor, escolha a opção desejada\n");
         System.out.println("1 - Visualizar motoristas cadastrados \n");
         System.out.println("2 - Visualizar viagens cadastradas ️\n");
-        System.out.println("3 - Visualizar veículos cadastrados 🔄️\n");
+        System.out.println("3 - Visualizar veículos cadastrados \n");
         System.out.println("4 - Voltar ao menu anterior ❌\n");
         //System.out.println("5 - Relatório 📓\n");
         System.out.println("0 - Sair do Fleet Manager 👋\n");
