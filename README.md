@@ -91,6 +91,7 @@ src
 - [x] Business rules: start and finish trips
 - [x] Reports with Streams
 - [ ] Console menu
+- [ ] Visual interface to replace console menu
 
 ## Author
 
